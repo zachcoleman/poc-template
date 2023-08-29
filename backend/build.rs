@@ -4,7 +4,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
          .out_dir("../client/src")
          .compile(
              &["../proto/hello.proto"],
-             &["../proto/", "../proto/googleapis/"],
+             &["../proto/", "../proto/google/"],
          )?;
     
     tonic_build::configure()
@@ -13,7 +13,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
          .build_transport(false)
          .compile(
              &["../proto/hello.proto"],
-             &["../proto/", "../proto/googleapis/"],
+             &["../proto/", "../proto/google/"],
          )?;
 
     Ok(())
