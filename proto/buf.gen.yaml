@@ -1,0 +1,26 @@
+version: v1
+plugins:
+  # Python Client
+  # - plugin: buf.build/protocolbuffers/python
+  #   out: ../grpc-python/gprc
+  # - plugin: buf.build/protocolbuffers/pyi
+  #   out: ../grpc-python/gprc
+  # - plugin: buf.build/grpc/python
+  #   out: ../grpc-python/gprc
+  
+  # Golang Gateway Server (REST->GRPC)
+  # (also serves Swagger UI)
+  - plugin: go
+    out: ../gateway/internal
+    opt:
+      - paths=source_relative
+  - plugin: go-grpc
+    out: ../gateway/internal
+    opt:
+      - paths=source_relative
+  - plugin: grpc-gateway
+    out: ../gateway/internal
+    opt:
+      - paths=source_relative
+  - plugin : openapiv2
+    out: ../gateway/openapi/api/v1

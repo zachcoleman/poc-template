@@ -1,0 +1,17 @@
+[package]
+name = "frontend"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "frontend"
+path = "src/main.rs"
+
+[build]
+target = "wasm32-unknown-unknown"
+
+[target.wasm32-unknown-unknown]
+runner = "wasm-server-runner"
+
+[dependencies]
+leptos = { version = "0.4.10", features = ["csr", "nightly"] }
