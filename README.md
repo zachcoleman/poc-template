@@ -39,3 +39,14 @@ For the Tonic client and server:
 ```sh
 cd backend && cargo build
 ```
+
+## Run Server:
+```sh
+cargo run --bin server
+```
+
+## Run Integration Tests (depends on running server)
+```sh
+cargo test
+```
+
