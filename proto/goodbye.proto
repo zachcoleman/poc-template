@@ -1,0 +1,23 @@
+syntax = "proto3";
+package goodbye;
+
+import "google/api/annotations.proto";
+
+option go_package = "./internal";
+
+message GoodbyeRequest {
+  string name = 1;
+}
+
+message GoodbyeResponse{
+    bool success = 1;
+}
+
+service GoodbyeService {
+  rpc Goodbye(GoodbyeRequest) returns (GoodbyeResponse){
+    option (google.api.http) = {
+      get: "/api/v1/goodbye/{name}"
+    };
+
+  }
+}

@@ -1,29 +1,29 @@
 use tonic::{Request, Response, Status};
 
 mod server{
-    tonic::include_proto!("hello");
+    tonic::include_proto!("goodbye");
 }
 
-pub use server::hello_service_server::{HelloService, HelloServiceServer};
-pub use server::{HelloRequest, HelloResponse};
+pub use server::goodbye_service_server::{GoodbyeService, GoodbyeServiceServer};
+pub use server::{GoodbyeRequest, GoodbyeResponse};
 
 #[derive(Debug)]
-pub struct MyHelloService {
+pub struct MyGoodbyeService {
     pub db_pool: sqlx::SqlitePool,
 }
 
-impl MyHelloService {
+impl MyGoodbyeService{
     pub fn new(db_pool: sqlx::SqlitePool) -> Self {
         Self { db_pool }
     }
 }
 
 #[tonic::async_trait]
-impl HelloService for MyHelloService{
-    async fn hello(
+impl GoodbyeService for MyGoodbyeService{
+    async fn goodbye(
         &self,
-        request: Request<HelloRequest>,
-    ) -> Result<Response<HelloResponse>, Status> {
+        request: Request<GoodbyeRequest>,
+    ) -> Result<Response<GoodbyeResponse>, Status> {
         // try to get a connection from the pool
         let try_conn = self.db_pool.acquire().await;
         if let Err(_) = try_conn{
@@ -37,22 +37,25 @@ impl HelloService for MyHelloService{
 
         // try and insert message into database
         let query = sqlx::query(
-            r#"INSERT INTO log (message) values (?)"#, 
+            r#"DELETE FROM log where message = ?"#, 
         )
         .bind(&msg)
         .execute(&mut *conn)
         .await;
+
         match query{
-            Ok(_) => { },
+            Ok(_) => { 
+                log::info!("Message deleted"); 
+            },
             Err(_) => {
-                log::error!("Error inserting message");
-                return Err(Status::internal("Error inserting message"));
+                log::error!("Error deleting message");
+                return Err(Status::internal("Error deleting message"));
             }
         }
 
         // respond with a message
-        let reply = server::HelloResponse{
-            message: format!("Hello {}!", &msg).into(),
+        let reply = server::GoodbyeResponse{
+            success: true,
         };
         Ok(Response::new(reply))
     }

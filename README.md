@@ -50,3 +50,23 @@ cargo run --bin server
 cargo test
 ```
 
+## Verify SQLite is Installed:
+```sh
+sqlite3 --version
+```
+Install if necessary:
+```sh
+brew install sqlite
+```
+
+## Install `sqlx` cli
+```sh
+cargo install sqlx-cli
+```
+
+## Create and Migrate the database
+If `DATABASE_URL` is set:
+```sh
+sqlx database create
+sqlx migrate run
+```

@@ -1,12 +1,12 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "hello.proto",
+    "title": "goodbye.proto",
     "version": "version not set"
   },
   "tags": [
     {
-      "name": "HelloService"
+      "name": "GoodbyeService"
     }
   ],
   "consumes": [
@@ -16,14 +16,14 @@
     "application/json"
   ],
   "paths": {
-    "/api/v1/hello/{name}": {
+    "/api/v1/goodbye/{name}": {
       "get": {
-        "operationId": "HelloService_Hello",
+        "operationId": "GoodbyeService_Goodbye",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/helloHelloResponse"
+              "$ref": "#/definitions/goodbyeGoodbyeResponse"
             }
           },
           "default": {
@@ -42,17 +42,17 @@
           }
         ],
         "tags": [
-          "HelloService"
+          "GoodbyeService"
         ]
       }
     }
   },
   "definitions": {
-    "helloHelloResponse": {
+    "goodbyeGoodbyeResponse": {
       "type": "object",
       "properties": {
-        "message": {
-          "type": "string"
+        "success": {
+          "type": "boolean"
         }
       }
     },
